@@ -9,6 +9,25 @@ from nltk.corpus import stopwords
 # Download NLTK stopwords (if not already downloaded)
 nltk.download('stopwords')
 
+
+# Set Streamlit theme configuration
+st.set_page_config(
+    page_title="Sentiment Score",
+    page_icon="✅",  
+    initial_sidebar_state="expanded"
+)
+
+# Hide Streamlit menu and footer
+st.markdown(
+    """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 # Define a function to analyze sentiment and generate a word cloud
 def analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, max_words, relative_scaling, background_color, colormap):
     # Create a DataFrame from the input text
@@ -18,7 +37,7 @@ def analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, m
     df['Sentiment Score'], df['Sentiment Label'] = zip(*df[text_col].apply(analyze_sentiment))
 
     # Join all filtered reviews into a single text
-    all_filtered_reviews = ' '.join(df['Filtered Review'])
+    all_filtered_reviews = ' '.join(df[text_col])
 
     # Define word cloud parameters
     wordcloud = WordCloud(width=800, height=400, background_color=background_color, colormap=colormap,
@@ -45,7 +64,7 @@ def categorize_sentiment(score):
         return 'Negative'
     else:
         return 'Neutral'
-
+    
 # Function to process and analyze the 'Review' column
 def analyze_sentiment(text):
     # Tokenize the text
@@ -124,5 +143,3 @@ if __name__ == '__main__':
             analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, max_words, relative_scaling, background_color, colormap)
         except Exception as e:
             st.error(f"Select text columns you need to analyze: {str(e)}")
-
-
