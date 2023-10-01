@@ -11,8 +11,7 @@ nltk.download('stopwords')
 
 # Set Streamlit theme configuration
 st.set_page_config(
-    page_title="Sentiment Score",
-    page_icon="✅",  
+    page_title="Sentiment Score",  
     initial_sidebar_state="expanded"
 )
 
@@ -35,11 +34,8 @@ def analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, m
     # Apply sentiment analysis to the specified text column and create new columns
     df['Sentiment Score'], df['Sentiment Label'] = zip(*df[text_col].apply(analyze_sentiment))
 
-    # Remove custom stopwords
-    df['Filtered Review'] = df[text_col].apply(remove_custom_stopwords, custom_stopwords=custom_stopwords)
-
     # Join all filtered reviews into a single text
-    all_filtered_reviews = ' '.join(df['Filtered Review'])
+    all_filtered_reviews = ' '.join(df[text_col])
 
     # Define word cloud parameters
     wordcloud = WordCloud(width=800, height=400, background_color=background_color, colormap=colormap,
@@ -66,7 +62,7 @@ def categorize_sentiment(score):
         return 'Negative'
     else:
         return 'Neutral'
-
+    
 # Function to process and analyze the 'Review' column
 def analyze_sentiment(text):
     # Tokenize the text
@@ -86,20 +82,6 @@ def analyze_sentiment(text):
     sentiment_label = categorize_sentiment(sentiment)
     
     return sentiment, sentiment_label
-
-# Function to remove custom stopwords with trimming
-def remove_custom_stopwords(text, custom_stopwords):
-    # Tokenize the text
-    words = text.split()
-    
-    # Remove custom stopwords with trimming
-    filtered_words = [word.strip() for word in words if word.lower().strip() not in custom_stopwords]
-    
-    # Join the filtered words back into a sentence
-    filtered_text = ' '.join(filtered_words)
-    
-    return filtered_text
-
 
 if __name__ == '__main__':
     st.title("Sentiment Analysis with Word Cloud")
