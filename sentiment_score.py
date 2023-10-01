@@ -145,3 +145,4 @@ if __name__ == '__main__':
         except Exception as e:
             st.error(f"Select text columns you need to analyze: {str(e)}")
 
+
