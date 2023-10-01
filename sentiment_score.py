@@ -7,6 +7,7 @@ import nltk
 from nltk.corpus import stopwords
 import spacy
 
+spacy.cli.download("en_core_web_sm")
 # Download NLTK stopwords (if not already downloaded)
 nltk.download('stopwords')
 
