@@ -17,9 +17,6 @@ def analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, m
     # Apply sentiment analysis to the specified text column and create new columns
     df['Sentiment Score'], df['Sentiment Label'] = zip(*df[text_col].apply(analyze_sentiment))
 
-    # Apply stopword removal and NER
-    df['Filtered Review'] = df[text_col].apply(remove_non_sentiment_words, custom_stopwords=custom_stopwords)
-
     # Join all filtered reviews into a single text
     all_filtered_reviews = ' '.join(df['Filtered Review'])
 
