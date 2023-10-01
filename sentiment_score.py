@@ -6,12 +6,8 @@ from textblob import TextBlob
 import nltk
 from nltk.corpus import stopwords
 
-spacy.cli.download("en_core_web_sm")
 # Download NLTK stopwords (if not already downloaded)
 nltk.download('stopwords')
-
-# Download spaCy model for named entity recognition (NER)
-nlp = spacy.load("en_core_web_sm")
 
 # Define a function to analyze sentiment and generate a word cloud
 def analyze_sentiment_and_generate_wordcloud(text, text_col, custom_stopwords, max_words, relative_scaling, background_color, colormap):
