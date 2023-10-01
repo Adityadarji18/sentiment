@@ -69,6 +69,7 @@ def analyze_sentiment(text):
     
     return sentiment, sentiment_label
 
+'''
 # Function to remove stopwords and non-sentiment entities using spaCy NER
 def remove_non_sentiment_words(text, custom_stopwords):
     doc = nlp(text)
@@ -80,7 +81,7 @@ def remove_non_sentiment_words(text, custom_stopwords):
     filtered_text = ' '.join(filtered_words)
     
     return filtered_text
-
+'''
 if __name__ == '__main__':
     st.title("Sentiment Analysis with Word Cloud")
     st.sidebar.title("Settings")
